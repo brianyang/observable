@@ -9,9 +9,9 @@
 
 
 ```javascript
-OBSERVABLE.subscribe(custom event name, object)
+OBSERVABLE.subscribe(myEvent, object)
 
-OBSERVABLE.unsubscribe(custom event name)
+OBSERVABLE.unsubscribe(myEvent)
 
-OBSERVABLE.publish(custom event name, object)
+OBSERVABLE.publish(myEvent, object)
 ```
