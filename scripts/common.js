@@ -23,3 +23,12 @@ OBSERVABLE = (function(){
 
 }())
 
+
+// OBSERVABLE.subscribe(eventName, method)
+// OBSERVABLE.unsubscribe(eventName)
+// OBSERVABLE.publish(eventName, method)
+
+OBSERVABLE.subscribe('userSignup',sendConfirmation())
+OBSERVABLE.unsubscribe('userSignup')
+OBSERVABLE.publish('userSignup', sendConfirmation())
+
