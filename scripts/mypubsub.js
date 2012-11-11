@@ -4,8 +4,8 @@
 * Licensed under the GPL
 */
 
-// prevent function from becoming an argument
 MYAPP = (function () {
+  // alternatively we could pass in
 
     var topics = {}
       , subUid = -1
@@ -15,11 +15,11 @@ MYAPP = (function () {
 
     myapp.pubsub = {}
 
-    myapp.pubsub.testSubscriber = function(topics, data){
+    myapp.pubsub.testSubscriber = function (topics, data){
       console.log(topics + " - " + data)
     }
 
-    myapp.pubsub.publish = function ( topic, args ) {
+    myapp.pubsub.publish = function (topic, args) {
 //{{{
         if (!topics[topic]) {
             return false
@@ -38,7 +38,7 @@ MYAPP = (function () {
 //}}}
     }
 
-    myapp.pubsub.subscribe = function ( topic, func ) {
+    myapp.pubsub.subscribe = function (topic, func ) {
 //{{{
         if (!topics[topic]) {
             topics[topic] = []
@@ -52,7 +52,7 @@ MYAPP = (function () {
         return token//}}}
     }
 
-    myapp.pubsub.unsubscribe = function ( token ) {
+    myapp.pubsub.unsubscribe = function (token) {
         for (var m in topics) {//{{{
             if (topics[m]) {
                 for (var i = 0, j = topics[m].length; i < j; i++) {
@@ -68,7 +68,6 @@ MYAPP = (function () {
 
     // event names organized in a hierarchical way using namespaces
     myapp.user = {
-
       init: function(){
         myapp.user.accounts()
         myapp.pubsub.publish('login')
@@ -84,7 +83,6 @@ MYAPP = (function () {
         }
     }
     , holdings: {
-
         equities: function(){
           console.log('user.holdings.equities')
           // code here
@@ -93,12 +91,34 @@ MYAPP = (function () {
           console.log('user.funds.equities')
           // code here
         }
-
       }
-
     }
-
     myapp.user.init()
-    return myapp
 
+    var method = {}
+    myapp.usage = {
+      registerEvent = function(ev){
+        myapp.pubsub.publish(ev)
+      }
+    , subscribeEvent = function(ev){
+        myapp.pubsub.subscribe(e, method)
+      }
+    , unsubscribeEvent = function(ev){
+        myapp.pubsub.unsubscribe(ev)
+      }
+    }
+    return myapp
 }())
+
+/*
+ * register an event
+ * myapp.usage.registerEvent(eventName)
+ *
+ * subscribe to an event
+ * myapp.usage.subscribeEvent(eventName)
+ *
+ * unsubcribe from an event
+ * myapp.usage.unsubscribeEvent(eventName)
+ *
+ *
+ * */
